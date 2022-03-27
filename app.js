@@ -48,25 +48,88 @@
 //     console.log(err);
 //   });
 
-const getData = () => {
-  const request = fetch("https://reqres.in/api/users?page=2");
-  request
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      let users = data.data;
-      renderUser(users);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+// const getData2 = async () => {
+//   try {
+//     const request = await fetch("https://reqres.in/api/users?page=2");
+//     const data = await request.json();
+//     console.log(":getData2", data);
+//     // impletement happy case
+//   } catch (eror) {
+//     console.log(eror);
+//   }
+// };
 
-const renderUser = (users) => {
-  for (let i = 0; i < users.length; i++) {
-    console.log(users[i]);
+// const renderUser = (users) => {
+//   for (let i = 0; i < users.length; i++) {
+//     console.log(users[i]);
+//   }
+// };
+
+// getData2();
+
+// const transformData = (users) => {
+//   const newUsers = [];
+//   for (let user of users) {
+//     newUsers.push({
+//       ...user,
+//       fullName: `${user.first_name} ${user.last_name}`,
+//     });
+//   }
+// };
+
+// getData("https://reqres.in/api/users?page=2", transformData);
+
+import { mockUser } from "./mockData.js";
+const rootElement = document.getElementById("root");
+
+const getData = async (apiURL, callback) => {
+  try {
+    const request = await fetch(apiURL);
+    const data = await request.json();
+    callback(data.data);
+  } catch (error) {
+    alert(error.message);
   }
 };
 
-getData();
+const renderUsers = (users) => {
+  for (let user of users) {
+    const userDiv = createUserHTMLElement(user);
+    rootElement.appendChild(userDiv);
+  }
+};
+
+const createUserHTMLElement = (user) => {
+  const { first_name, last_name, avatar, email } = user;
+
+  // return `
+  //   <div class="user">
+  //     <img src="${avatar}" alt="">
+  //     <h2>${first_name} ${last_name}/h2>
+  //     <p>${email}</p>
+  //   </div>
+  // `;
+
+  const userDiv = document.createElement("div");
+  userDiv.classList.add("user");
+
+  const avatarElement = document.createElement("img");
+  avatarElement.src = avatar;
+
+  const fullNameElement = document.createElement("h2");
+  fullNameElement.innerText = `${first_name} ${last_name}`;
+
+  const emailElement = document.createElement("p");
+  emailElement.innerText = email;
+
+  userDiv.appendChild(avatarElement);
+  userDiv.appendChild(fullNameElement);
+  userDiv.appendChild(emailElement);
+
+  return userDiv;
+};
+
+// createUserHTMLElement(mockUser);
+// console.log(userHRML);
+
+getData("https://reqres.in/api/users?page=2", renderUsers);
