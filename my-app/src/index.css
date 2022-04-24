@@ -116,7 +116,7 @@ nav {
 
 .carousel {
   height: 730px;
-  background-image: url("../img/b1.jpg");
+  /* background-image: url("../img/b1.jpg"); */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -223,7 +223,7 @@ nav {
 
 .bannerDiscount {
   height: 500px;
-  background-image: url("../img/ban1.jpg");
+  /* background-image: url("../img/ban1.jpg"); */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
