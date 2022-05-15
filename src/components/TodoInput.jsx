@@ -1,11 +1,18 @@
 import React from "react";
 
-const TodoComponent = () => {
+const TodoInput = () => {
+  const onChangeHandler = (event) => {
+    console.log(event.target.value);
+  };
+
+  const onClickHandler = () => {};
+
   return (
     <div>
-      <h1>Todo Component</h1>
+      <input type="text" onChange={onChangeHandler} />
+      <button onClick={onClickHandler}>Add</button>
     </div>
   );
 };
 
-export default TodoComponent;
+export default TodoInput;
