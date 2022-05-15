@@ -59,7 +59,6 @@ const DemoNextUI = () => {
         </Modal.Header>
         <Modal.Body>
           <Input placeholder="Username" />
-          <Spacer y={20} />
           <Input placeholder="Password" />
           <Button>Login</Button>
         </Modal.Body>
