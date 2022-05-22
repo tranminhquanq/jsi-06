@@ -5,7 +5,6 @@ import {
   Modal,
   Text,
   Input,
-  Spacer,
   Grid,
   Card,
 } from "@nextui-org/react";
@@ -39,6 +38,10 @@ const DemoNextUI = () => {
     setIsOpen(!isOpen);
   };
 
+  const onClose = () => {
+    setIsOpen(false);
+  };
+
   return (
     <div>
       <Avatar text="a" size="xs" textColor="error" />
@@ -53,6 +56,7 @@ const DemoNextUI = () => {
         open={isOpen}
         width="400px"
         blur
+        onClose={onClose}
       >
         <Modal.Header>
           <Text>Login Form</Text>
