@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 // import TodoComponent from "./components/TodoComponent";
 // import Login from "./components/Login";
-import DemoNextUI from "./components/DemoNextUI";
-import Usercontainer from "./components/Usercontainer";
+// import DemoNextUI from "./components/DemoNextUI";
+// import Usercontainer from "./components/Usercontainer";
+import StudentForm from "./components/StudentForm";
 
 export default function App() {
   // const [isLogin, setIsLogin] = useState(false);
@@ -23,7 +24,8 @@ export default function App() {
         {isLogin === true ? "Logout Button" : "Login Button"}
       </button> */}
       {/* <DemoNextUI /> */}
-      <Usercontainer />
+      {/* <Usercontainer /> */}
+      <StudentForm />
     </div>
   );
 }
