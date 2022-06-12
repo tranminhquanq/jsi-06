@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Pagination } from "@nextui-org/react";
+import { Grid, Pagination, Container } from "@nextui-org/react";
 import UserItem from "./UserItem";
 
 const initialPage = 1;
@@ -25,7 +25,7 @@ const Usercontainer = () => {
   }, [currentPage]);
 
   return (
-    <>
+    <Container>
       <Grid.Container gap={2}>
         {userReponse?.data.map((userObject) => {
           return (
@@ -40,7 +40,7 @@ const Usercontainer = () => {
         initialPage={initialPage}
         onChange={onChangePageHandler}
       />
-    </>
+    </Container>
   );
 };
 

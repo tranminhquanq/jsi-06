@@ -1,12 +1,34 @@
-import { Table, Checkbox } from "@nextui-org/react";
-import { tinhGPA } from "../helper/common";
+import React, { useState } from "react";
+import { Table, Radio } from "@nextui-org/react";
 
 const StudentInfo = (props) => {
+  const [sortBy, setSortBy] = useState("UP");
+
+  // console.log("sortBy", sortBy);
+
   return (
     <div>
       <h1>Danh sách học sinh</h1>
-      <Checkbox defaultSelected={true}>Giảm</Checkbox>
-      <Checkbox>Tăng</Checkbox>
+      <Radio.Group
+        label="Sort"
+        defaultValue="UP"
+        onChange={(value) => {
+          console.log("value", value);
+          if (value === "UP") {
+            props.sortUP();
+          } else {
+            props.sortDown();
+          }
+          setSortBy(value);
+        }}
+      >
+        <Radio value="UP" name="sort" checked={sortBy === "UP"}>
+          Tăng
+        </Radio>
+        <Radio value="DOWN" name="sort" checked={sortBy === "DOWN"}>
+          Giảm
+        </Radio>
+      </Radio.Group>
       <Table
         aria-label="Example static collection table with multiple selection"
         css={{
@@ -24,16 +46,13 @@ const StudentInfo = (props) => {
         </Table.Header>
         <Table.Body>
           {props.studentsInfo.map((st) => {
-            console.log(st);
             return (
               <Table.Row key={st.id}>
                 <Table.Cell>{st.fullName}</Table.Cell>
                 <Table.Cell>{st.diemToan}</Table.Cell>
                 <Table.Cell>{st.diemHoa}</Table.Cell>
                 <Table.Cell>{st.diemLy}</Table.Cell>
-                <Table.Cell>
-                  {tinhGPA(st.diemToan, st.diemHoa, st.diemLy).toFixed(2)}
-                </Table.Cell>
+                <Table.Cell>{st.GPA.toFixed(2)}</Table.Cell>
               </Table.Row>
             );
           })}
@@ -42,7 +61,7 @@ const StudentInfo = (props) => {
           shadow
           noMargin
           align="center"
-          rowsPerPage={3}
+          rowsPerPage={10}
           onPageChange={(page) => console.log({ page })}
         />
       </Table>

@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 // import TodoComponent from "./components/TodoComponent";
 // import Login from "./components/Login";
 // import DemoNextUI from "./components/DemoNextUI";
-// import Usercontainer from "./components/Usercontainer";
+import Usercontainer from "./components/Usercontainer";
 import StudentForm from "./components/StudentForm";
+import Welcome from "./components/Welcome";
+import Header from "./components/Header";
+import UserDetail from "./components/UserDetail";
 
 export default function App() {
   // const [isLogin, setIsLogin] = useState(false);
@@ -25,7 +29,14 @@ export default function App() {
       </button> */}
       {/* <DemoNextUI /> */}
       {/* <Usercontainer /> */}
-      <StudentForm />
+      <Header />
+      <Routes>
+        <Route path="/" element={<Welcome />} />
+        <Route path="/student-form" element={<StudentForm />} />
+        <Route path="/users" element={<Usercontainer />} />
+        <Route path="/users/:userId" element={<UserDetail />} />
+      </Routes>
+      {/* <StudentForm /> */}
     </div>
   );
 }

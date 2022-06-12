@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { Container } from "@nextui-org/react";
 import StudentInfo from "./StudentInfo";
+import { tinhGPA } from "../helper/common";
 
 const StudentForm = () => {
   const [student, setStudent] = useState({
@@ -8,6 +10,7 @@ const StudentForm = () => {
     diemToan: 0,
     diemHoa: 0,
     diemLy: 0,
+    GPA: 0,
   });
   const [studentsInfo, setStudentsInfo] = useState([]);
   const onChangeHandler = (event) => {
@@ -18,17 +21,43 @@ const StudentForm = () => {
     });
   };
 
+  // console.log("studentsInfo", studentsInfo);
+
+  const sortUP = () => {
+    const newState = [...studentsInfo];
+    newState.sort((a, b) => {
+      return a.GPA - b.GPA;
+    });
+    // console.log("sort up", newState);
+    setStudentsInfo([...newState]);
+  };
+
+  const sortDown = () => {
+    const a = [...studentsInfo];
+    a.sort((a, b) => {
+      return b.GPA - a.GPA;
+    });
+    console.log("sort down", a);
+
+    setStudentsInfo([...a]);
+  };
+
   const onClickHandler = (event) => {
     event.preventDefault();
     if (student.fullName !== "") {
+      let diemToan = Number(student.diemToan);
+      let diemHoa = Number(student.diemHoa);
+      let diemLy = Number(student.diemLy);
+
       const newStudent = {
         ...student,
         id: uuidv4(),
-        diemToan: Number(student.diemToan),
-        diemHoa: Number(student.diemHoa),
-        diemLy: Number(student.diemLy),
+        diemToan,
+        diemHoa,
+        diemLy,
+        GPA: tinhGPA(diemToan, diemHoa, diemLy),
       };
-      setStudentsInfo([newStudent, ...studentsInfo]);
+      setStudentsInfo((prev) => [newStudent, ...prev]);
       setStudent({
         fullName: "",
         diemToan: 0,
@@ -39,7 +68,7 @@ const StudentForm = () => {
   };
 
   return (
-    <div>
+    <Container lg>
       <form>
         <div className="form-group">
           <label>Họ và tên:</label>
@@ -79,8 +108,12 @@ const StudentForm = () => {
         </div>
         <button onClick={onClickHandler}>Submit</button>
       </form>
-      <StudentInfo studentsInfo={studentsInfo} />
-    </div>
+      <StudentInfo
+        studentsInfo={studentsInfo}
+        sortUP={sortUP}
+        sortDown={sortDown}
+      />
+    </Container>
   );
 };
 
